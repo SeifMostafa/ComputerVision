@@ -1,14 +1,18 @@
-I = rgb2gray(imread ('/home/azizax/Documents/fci/Second/ComputerVision/Tasks/Hough-LineDetection/lines2.jpg'));
+I = rgb2gray(imread ('/home/azizax/Documents/fci/Second/ComputerVision/Tasks/Hough-LineDetection/lines.jpg'));
 %rotI = imrotate(I,-33,'crop');
 I_edgeDetected_byCanny = edge(I,'canny');
 [M,N]=size(I);
-rhomax = ceil(sqrt(M^2 + N^2));   
+rhomax = ceil(sqrt(M^2 + N^2));  
+dtheta=45;
 theta=linspace(-90,90,ceil(90/dtheta)+1);  % 1 will be undo later
 h=zeros(rhomax*2,length(theta));
 [x,y,s] = find(I_edgeDetected_byCanny);
-THRESHOLD = 4;
+THRESHOLD = 60;
+
+imshow(I);
+hold on;
 for index = 1:size(s)
-                for thetaindex = 1:length(theta)
+                for thetaindex = 1:length(theta)-1
                     rho = round(x(index)*cosd(theta(thetaindex)) + y(index)*sind(theta(thetaindex)));
                     rho = rho +rhomax;
                     h(rho,thetaindex)=h(rho,thetaindex)+1;
@@ -25,14 +29,13 @@ for i=1:rhomax*2
     end
 end
 
-imshow(I);
-hold on;
-for index = 1:size(s)
+for index = 1:size(s)-1
                 for thetaindex = 1:length(theta)
                     rho = round(x(index)*cosd(theta(thetaindex)) + y(index)*sind(theta(thetaindex)));
                     rho = rho +rhomax;
                     if h(rho,thetaindex) == 1
-                        plot(x(index),y(index),'.r');
+                                              %  line([x(index),y(index)],[x(index+1),y(index+1)]);
+                      plot(x(index),y(index),'.r');
                     end
                 end     
 end
