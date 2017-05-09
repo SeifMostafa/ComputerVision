@@ -1,18 +1,19 @@
-I = rgb2gray(imread ('/home/azizax/Documents/fci/Second/ComputerVision/Tasks/Hough-LineDetection/lines.jpg'));
+I = imread ('/home/azizax/Desktop/ps1-input0a.jpg');
 %rotI = imrotate(I,-33,'crop');
 I_edgeDetected_byCanny = edge(I,'canny');
 [M,N]=size(I);
 rhomax = ceil(sqrt(M^2 + N^2));  
-dtheta=45;
+dtheta=10;
 theta=linspace(-90,90,ceil(90/dtheta)+1);  % 1 will be undo later
 h=zeros(rhomax*2,length(theta));
 [x,y,s] = find(I_edgeDetected_byCanny);
-THRESHOLD = 60;
+%x=x-1; y=y-1;
+THRESHOLD = 10;
 
 imshow(I);
 hold on;
 for index = 1:size(s)
-                for thetaindex = 1:length(theta)-1
+                for thetaindex = 1:length(theta)
                     rho = round(x(index)*cosd(theta(thetaindex)) + y(index)*sind(theta(thetaindex)));
                     rho = rho +rhomax;
                     h(rho,thetaindex)=h(rho,thetaindex)+1;
