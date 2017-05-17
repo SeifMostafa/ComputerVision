@@ -38,14 +38,15 @@ KR=KR*RX;
 r=sqrt(KR(3,3)^2+KR(3,1)^2);
 c = KR(3,3)/r;
 s = KR(3,1)/r;
-RY = [0 1 0 ; c 0 s ; -s 0 c ];
+RY = [ c 0 s ;0 1 0; -s 0 c ];
 KR=KR*RY;
+KR
 % doesn't 
-r=sqrt(KR(3,3)^2+KR(2,1)^2);
-c = KR(3,3)/r;
+r=sqrt(KR(2,2)^2+KR(2,1)^2);
+c = KR(2,2)/r;
 s = KR(2,1)/r;
-RZ = [0 0 1 ;c s 0 ; -s c 0 ];
+RZ = [c s 0 ; -s c 0;0 0 1 ];
 KR=KR*RZ;
 
-
+KR
 
